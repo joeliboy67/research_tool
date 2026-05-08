@@ -6,7 +6,7 @@ from search import search_company
 from brief import generate_brief
 from render import save_brief
 
-st.set_page_config(page_title="Pitch Brief Generator", page_icon="📋", layout="wide")
+st.set_page_config(page_title="Joel | Pitchcraft", page_icon="👋", layout="wide")
 
 st.markdown("""
     <style>
@@ -53,9 +53,10 @@ with st.sidebar:
     else:
         st.write("No searches yet.")
 
-# Main
-st.title("📋 Pitch Brief Generator")
-st.markdown("*Generate a professional pitch brief for any company in seconds.*")
+# Main#
+st.image("logo.png", width=200)
+st.title("👋 Joel")
+st.markdown("*Pitchcraft's research assistant*")
 st.divider()
 
 if "selected_brief" in st.session_state:
