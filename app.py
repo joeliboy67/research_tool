@@ -6,8 +6,7 @@ from search import search_company
 from brief import generate_brief
 from render import save_brief
 
-st.set_page_config(page_title="Joel | Pitchcraft", page_icon="👋", layout="wide")
-
+st.set_page_config(page_title="Joel | Pitchcraft Advisory", page_icon="👋", layout="wide")
 st.markdown("""
     <style>
     .stButton>button {
@@ -54,9 +53,7 @@ with st.sidebar:
         st.write("No searches yet.")
 
 # Main#
-st.image("logo.png.jpg", width=200)
-st.title("👋 Joel")
-st.markdown("*Pitchcraft's research assistant*")
+st.title("👋 Alright butt, I'm Joel, Pitchcraft's research assistant")
 st.divider()
 
 if "selected_brief" in st.session_state:
