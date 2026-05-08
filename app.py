@@ -54,7 +54,7 @@ with st.sidebar:
         st.write("No searches yet.")
 
 # Main#
-st.image("logo.png", width=200)
+st.image("logo.png.jpg", width=200)
 st.title("👋 Joel")
 st.markdown("*Pitchcraft's research assistant*")
 st.divider()
