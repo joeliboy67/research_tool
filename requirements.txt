@@ -1,0 +1,5 @@
+anthropic
+tavily
+python-docx
+python-dotenv
+streamlit
