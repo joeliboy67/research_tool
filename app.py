@@ -61,6 +61,16 @@ st.divider()
 if "selected_brief" in st.session_state:
     st.subheader(f"📄 {st.session_state.selected_company}")
     st.markdown(st.session_state.selected_brief.replace("$", "\\$"))
+    
+    filepath = save_brief(st.session_state.selected_company, st.session_state.selected_brief)
+    with open(filepath, "rb") as f:
+        st.download_button(
+            label="⬇️ Download Word Doc",
+            data=f,
+            file_name=filepath.split("/")[-1],
+            mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        )
+    
     if st.button("← New Search"):
         del st.session_state.selected_brief
         del st.session_state.selected_company
