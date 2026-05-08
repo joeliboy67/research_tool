@@ -20,7 +20,12 @@ def search_company(company_name):
         search_depth="advanced",
         max_results=5
     )
-    
+    # Website and branding search
+    branding = client.search(
+        query=f"{company_name} official website mission values marketing slogan brand",
+        search_depth="advanced",
+        max_results=5
+    )
     # Combine results
     combined = general["results"] + leadership["results"]
     
