@@ -57,7 +57,7 @@ def generate_brief(company_name, search_results):
     
     message = client.messages.create(
         model="claude-sonnet-4-5",
-        max_tokens=2000,
+        max_tokens=4000,
         system=SYSTEM_PROMPT,
         messages=[
             {
