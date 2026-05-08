@@ -86,6 +86,11 @@ else:
                 filepath = save_brief(company_name, brief)
 
             save_to_history(company_name, brief)
+            with open("companies.txt", "a+") as f:
+                f.seek(0)
+                existing = [line.strip().lower() for line in f.readlines()]
+                if company_name.lower() not in existing:
+                    f.write(f"\n{company_name}")
 
             st.success("Brief generated successfully!")
             st.divider()
