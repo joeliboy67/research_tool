@@ -19,13 +19,28 @@ Bullet points covering the last 12 months.
 3. KEY PEOPLE
 Name and title of important figures, with any relevant context.
 
-4. LIKELY PAIN POINTS
+4. FINANCIALS
+Revenue, profit, growth trends, and any notable financial developments. Include figures where available.
+
+5. TARGET AUDIENCE
+Who are the company's primary customers or clients? Include demographics, segments, or industries they serve.
+
+6. PRODUCT DISTRIBUTION
+How does the company get its products or services to market? Channels, regions, partners, or platforms used.
+
+7. CUSTOMER & CONSUMER RELATIONSHIPS
+How does the company interact with and retain its customers? Any notable sentiment, complaints, loyalty programmes, or reputation issues.
+
+8. MARKETING STRATEGY
+Summary of how the company positions itself in the market. Key campaigns, channels, messaging, or brand direction if available.
+
+9. LIKELY PAIN POINTS
 What challenges is this company probably facing right now?
 
-5. CONVERSATION HOOKS
+10. CONVERSATION HOOKS
 2-3 tailored talking points the consultant can use to open a conversation.
 
-6. OPEN QUESTIONS
+11. OPEN QUESTIONS
 Things worth asking in the meeting.
 
 Be concise. If data is missing for a section, say so briefly.
@@ -42,7 +57,7 @@ def generate_brief(company_name, search_results):
     
     message = client.messages.create(
         model="claude-sonnet-4-5",
-        max_tokens=1024,
+        max_tokens=2000,
         system=SYSTEM_PROMPT,
         messages=[
             {
