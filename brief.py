@@ -40,7 +40,10 @@ What challenges is this company probably facing right now?
 10. CONVERSATION HOOKS
 2-3 tailored talking points the consultant can use to open a conversation.
 
-11. OPEN QUESTIONS
+11. COMPETITOR ANALYSIS
+Who are the main competitors? How does this company compare in terms of market position, strengths and weaknesses?
+
+12. OPEN QUESTIONS
 Things worth asking in the meeting.
 
 Be concise. If data is missing for a section, say so briefly.
