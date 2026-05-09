@@ -54,17 +54,33 @@ Date: {datetime.now().strftime("%d %B %Y")}
     return message.content[0].text
 
 def send_digest(digest_text):
+    # Convert to HTML
+    html_content = f"<html><body style='font-family: Arial, sans-serif;'>"
+    
+    for line in digest_text.split('\n'):
+        if line.strip() and not line.startswith('-') and not line.startswith('=') and line.isupper():
+            html_content += f"<h2 style='text-decoration: underline;'>{line}</h2>"
+        elif line.startswith('-'):
+            html_content += f"<p style='margin: 4px 0;'>{line}</p>"
+        elif line.startswith('='):
+            html_content += "<hr>"
+        elif line.strip():
+            html_content += f"<p><strong>{line}</strong></p>"
+        else:
+            html_content += "<br>"
+    
+    html_content += "</body></html>"
+    
     message = Mail(
         from_email=os.getenv("SENDGRID_FROM_EMAIL"),
         to_emails=os.getenv("DIGEST_TO_EMAIL"),
         subject=f"Pitchcraft Weekly Digest — {datetime.now().strftime('%d %B %Y')}",
-        plain_text_content=digest_text
+        html_content=html_content
     )
     
     sg = SendGridAPIClient(os.getenv("SENDGRID_API_KEY"))
     sg.send(message)
     print("Digest sent successfully")
-
 if __name__ == "__main__":
     print("Loading companies...")
     companies = load_companies()
