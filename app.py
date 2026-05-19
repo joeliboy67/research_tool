@@ -2,11 +2,13 @@ import streamlit as st
 import json
 import os
 from datetime import datetime
+from supabase import create_client
 from search import search_company
 from brief import generate_brief
 from render import save_brief
 
 st.set_page_config(page_title="Joel | Pitchcraft Advisory", page_icon="👋", layout="wide")
+
 st.markdown("""
     <style>
     .stButton>button {
@@ -40,6 +42,25 @@ def save_to_history(company_name, brief):
     with open(HISTORY_FILE, "w") as f:
         json.dump(history[:20], f)
 
+def get_supabase():
+    return create_client(os.getenv("SUPABASE_URL"), os.getenv("SUPABASE_KEY"))
+
+def add_to_watchlist(company_name):
+    try:
+        supabase = get_supabase()
+        supabase.table("watchlist").upsert({"company_name": company_name}).execute()
+        return True
+    except Exception as e:
+        return False
+
+def load_watchlist():
+    try:
+        supabase = get_supabase()
+        result = supabase.table("watchlist").select("company_name").execute()
+        return [row["company_name"] for row in result.data]
+    except:
+        return []
+
 # Sidebar
 with st.sidebar:
     st.title("🕘 Search History")
@@ -52,14 +73,14 @@ with st.sidebar:
     else:
         st.write("No searches yet.")
 
-# Main#
+# Main
 st.title("👋 Alright butt, I'm Joel, Pitchcraft's research assistant")
 st.divider()
 
 if "selected_brief" in st.session_state:
     st.subheader(f"📄 {st.session_state.selected_company}")
     st.markdown(st.session_state.selected_brief.replace("$", "\\$"))
-    
+
     filepath = save_brief(st.session_state.selected_company, st.session_state.selected_brief)
     with open(filepath, "rb") as f:
         st.download_button(
@@ -68,7 +89,13 @@ if "selected_brief" in st.session_state:
             file_name=filepath.split("/")[-1],
             mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
         )
-    
+
+    if st.button("💾 Save to watchlist"):
+        if add_to_watchlist(st.session_state.selected_company):
+            st.success(f"{st.session_state.selected_company} saved to watchlist and weekly digest.")
+        else:
+            st.error("Failed to save. Please try again.")
+
     if st.button("← New Search"):
         del st.session_state.selected_brief
         del st.session_state.selected_company
@@ -85,19 +112,18 @@ else:
             with st.spinner("💾 Saving document..."):
                 filepath = save_brief(company_name, brief)
 
-            if st.button("💾 Save to watchlist"):
-                save_to_history(company_name, brief)
-                with open("companies.txt", "a+") as f:
-                    f.seek(0)
-                    existing = [line.strip().lower() for line in f.readlines()]
-                    if company_name.lower() not in existing:
-                        f.write(f"\n{company_name}")
-                st.success(f"{company_name} saved to watchlist and weekly digest.")
+            save_to_history(company_name, brief)
 
             st.success("Brief generated successfully!")
             st.divider()
             st.markdown(brief.replace("$", "\\$"))
             st.divider()
+
+            if st.button("💾 Save to watchlist"):
+                if add_to_watchlist(company_name):
+                    st.success(f"{company_name} saved to watchlist and weekly digest.")
+                else:
+                    st.error("Failed to save. Please try again.")
 
             with open(filepath, "rb") as f:
                 st.download_button(
