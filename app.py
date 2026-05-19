@@ -53,7 +53,8 @@ def add_to_watchlist(company_name):
             "Prefer": "resolution=merge-duplicates"
         }
         response = requests.post(url, json={"company_name": company_name}, headers=headers)
-        return response.status_code in [200, 201]
+        st.write(f"Status: {response.status_code}, Response: {response.text}")
+        return response.status_code in [200, 201, 204]
     except Exception as e:
         st.error(f"Error: {str(e)}")
         return False
