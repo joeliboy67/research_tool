@@ -48,17 +48,19 @@ def get_supabase():
 def add_to_watchlist(company_name):
     try:
         supabase = get_supabase()
-        supabase.table("watchlist").upsert({"company_name": company_name}).execute()
+        response = supabase.table("watchlist").upsert({"company_name": company_name}).execute()
         return True
     except Exception as e:
+        st.error(f"Supabase error: {str(e)}")
         return False
+
 
 def load_watchlist():
     try:
         supabase = get_supabase()
         result = supabase.table("watchlist").select("company_name").execute()
         return [row["company_name"] for row in result.data]
-    except:
+    except Exception as e:
         return []
 
 # Sidebar
