@@ -3,4 +3,4 @@ tavily
 python-docx
 python-dotenv
 streamlit
-supabase==2.3.0
+supabase==2.10.0
