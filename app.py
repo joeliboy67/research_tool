@@ -45,6 +45,7 @@ def save_to_history(company_name, brief):
 def add_to_watchlist(company_name):
     try:
         url = f"{os.getenv('SUPABASE_URL')}/rest/v1/watchlist"
+        st.write(f"Debug URL: {os.getenv('SUPABASE_URL')}")
         headers = {
             "apikey": os.getenv("SUPABASE_KEY"),
             "Authorization": f"Bearer {os.getenv('SUPABASE_KEY')}",
