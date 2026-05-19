@@ -1,8 +1,8 @@
 import streamlit as st
 import json
 import os
+import requests
 from datetime import datetime
-from supabase import create_client
 from search import search_company
 from brief import generate_brief
 from render import save_brief
@@ -42,25 +42,31 @@ def save_to_history(company_name, brief):
     with open(HISTORY_FILE, "w") as f:
         json.dump(history[:20], f)
 
-def get_supabase():
-    return create_client(os.getenv("SUPABASE_URL"), os.getenv("SUPABASE_KEY"))
-
 def add_to_watchlist(company_name):
     try:
-        supabase = get_supabase()
-        response = supabase.table("watchlist").upsert({"company_name": company_name}).execute()
-        return True
+        url = f"{os.getenv('SUPABASE_URL')}/rest/v1/watchlist"
+        headers = {
+            "apikey": os.getenv("SUPABASE_KEY"),
+            "Authorization": f"Bearer {os.getenv('SUPABASE_KEY')}",
+            "Content-Type": "application/json",
+            "Prefer": "resolution=merge-duplicates"
+        }
+        response = requests.post(url, json={"company_name": company_name}, headers=headers)
+        return response.status_code in [200, 201]
     except Exception as e:
-        st.error(f"Supabase error: {str(e)}")
+        st.error(f"Error: {str(e)}")
         return False
-
 
 def load_watchlist():
     try:
-        supabase = get_supabase()
-        result = supabase.table("watchlist").select("company_name").execute()
-        return [row["company_name"] for row in result.data]
-    except Exception as e:
+        url = f"{os.getenv('SUPABASE_URL')}/rest/v1/watchlist?select=company_name"
+        headers = {
+            "apikey": os.getenv("SUPABASE_KEY"),
+            "Authorization": f"Bearer {os.getenv('SUPABASE_KEY')}"
+        }
+        response = requests.get(url, headers=headers)
+        return [row["company_name"] for row in response.json()]
+    except:
         return []
 
 # Sidebar
