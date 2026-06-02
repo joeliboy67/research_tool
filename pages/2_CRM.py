@@ -64,14 +64,6 @@ def update_lead_stage(lead_id, new_stage):
     )
     return r.status_code in [200, 204]
 
-def update_lead_notes(lead_id, notes):
-    r = requests.patch(
-        f"{SUPABASE_URL}/rest/v1/leads?id=eq.{lead_id}",
-        headers=HEADERS,
-        json={"notes": notes, "updated_at": datetime.now().isoformat()}
-    )
-    return r.status_code in [200, 204]
-
 def delete_lead(lead_id):
     r = requests.delete(
         f"{SUPABASE_URL}/rest/v1/leads?id=eq.{lead_id}",
@@ -119,28 +111,4 @@ def delete_task(task_id):
 def inject_styles():
     st.markdown("""
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
-
-        html, body, [class*="css"] {
-            font-family: 'Inter', sans-serif;
-        }
-
-        .main {
-            background-color: #FFFFFF;
-        }
-
-        /* Page title */
-        .crm-title {
-            font-size: 2rem;
-            font-weight: 600;
-            color: #1a1a1a;
-            margin-bottom: 0.25rem;
-        }
-
-        .crm-subtitle {
-            font-size: 0.875rem;
-            color: #9b9b9b;
-            margin-bottom: 2rem;
-        }
-
-        /* Stage column
+        @import url('https:
