@@ -8,7 +8,8 @@ SUPABASE_KEY = st.secrets["SUPABASE_KEY"]
 HEADERS = {
     "apikey": SUPABASE_KEY,
     "Authorization": f"Bearer {SUPABASE_KEY}",
-    "Content-Type": "application/json"
+    "Content-Type": "application/json",
+    "Prefer": "return=representation"
 }
 
 STAGES = ["Prospect", "Contacted", "Meeting Booked", "Proposal Sent", "Won", "Lost"]
@@ -35,7 +36,9 @@ def add_lead(company_name, contact_name, contact_email, source, stage, notes):
         headers=HEADERS,
         json=payload
     )
-    return r.status_code == 201
+    st.write(f"Debug — Status: {r.status_code}")
+    st.write(f"Debug — Response: {r.text}")
+    return r.status_code in [200, 201]
 
 def update_lead_stage(lead_id, new_stage):
     r = requests.patch(
@@ -43,14 +46,14 @@ def update_lead_stage(lead_id, new_stage):
         headers=HEADERS,
         json={"stage": new_stage, "updated_at": datetime.now().isoformat()}
     )
-    return r.status_code == 204
+    return r.status_code in [200, 204]
 
 def delete_lead(lead_id):
     r = requests.delete(
         f"{SUPABASE_URL}/rest/v1/leads?id=eq.{lead_id}",
         headers=HEADERS
     )
-    return r.status_code == 204
+    return r.status_code in [200, 204]
 
 def get_tasks(lead_id):
     r = requests.get(
@@ -71,7 +74,7 @@ def add_task(lead_id, title, due_date):
         headers=HEADERS,
         json=payload
     )
-    return r.status_code == 201
+    return r.status_code in [200, 201]
 
 def complete_task(task_id):
     r = requests.patch(
@@ -79,14 +82,14 @@ def complete_task(task_id):
         headers=HEADERS,
         json={"status": "Done"}
     )
-    return r.status_code == 204
+    return r.status_code in [200, 204]
 
 def delete_task(task_id):
     r = requests.delete(
         f"{SUPABASE_URL}/rest/v1/tasks?id=eq.{task_id}",
         headers=HEADERS
     )
-    return r.status_code == 204
+    return r.status_code in [200, 204]
 
 # --- PAGE ---
 st.set_page_config(page_title="Pitchcraft CRM", layout="wide")
