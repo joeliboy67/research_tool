@@ -36,8 +36,6 @@ def add_lead(company_name, contact_name, contact_email, source, stage, notes):
         headers=HEADERS,
         json=payload
     )
-    st.write(f"Debug — Status: {r.status_code}")
-    st.write(f"Debug — Response: {r.text}")
     return r.status_code in [200, 201]
 
 def update_lead_stage(lead_id, new_stage):
@@ -140,7 +138,8 @@ with tab1:
                             done = task["status"] == "Done"
                             tcol1, tcol2, tcol3 = st.columns([3, 1, 1])
                             with tcol1:
-                                st.write(f"{'~~' if done else ''}{task['title']}{'~~' if done else ''} — {task.get('due_date', 'No date')}")
+                                label = f"~~{task['title']}~~" if done else task['title']
+                                st.write(f"{label} — {task.get('due_date', 'No date')}")
                             with tcol2:
                                 if not done:
                                     if st.button("✅", key=f"done_{task['id']}"):
