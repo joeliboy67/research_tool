@@ -14,7 +14,7 @@ Always output in this exact structure:
 A 3-4 sentence summary of what the company does.
 
 2. RECENT NEWS & DEVELOPMENTS
-Bullet points covering the last 12 months.
+Bullet points covering the last 12 months, ordered from most recent to oldest. Include the month and year for each bullet point.
 
 3. KEY PEOPLE
 Name and title of important figures, with any relevant context.
