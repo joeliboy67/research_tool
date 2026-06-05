@@ -46,6 +46,12 @@ Who are the main competitors? How does this company compare in terms of market p
 12. OPEN QUESTIONS
 Things worth asking in the meeting.
 
+13. WHAT KEEPS THEM UP AT NIGHT
+Based on analyst questions, investor calls, conference talks and press coverage — what are the real pressure points for this leadership team right now? What are they being held accountable for that they would rather not discuss? What questions do they dodge or give vague answers to?
+
+14. WHAT THEY WANT TO BE KNOWN FOR
+What narrative is the leadership team pushing publicly? What do they claim are their priorities and competitive advantages? What do they talk about when they are in sales mode? Note any gap between this public narrative and the reality suggested by other sources — this gap is where a consultant can add value.
+
 Be concise. If data is missing for a section, say so briefly.
 """
 
