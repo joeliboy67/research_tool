@@ -56,6 +56,7 @@ Based on analyst questions, investor calls, conference talks and press coverage 
 What narrative is the leadership team pushing publicly? What do they claim are their priorities and competitive advantages? What do they talk about when they are in sales mode? Note any gap between this public narrative and the reality suggested by other sources — this gap is where a consultant can add value.
 
 Be concise. If data is missing for a section, say so briefly.
+Keep each section concise — maximum 4-5 bullet points per section where possible.
 """
 
 def generate_brief(company_name, search_results):
